@@ -54,25 +54,33 @@ $(
 
     /* TODO: Write a new test suite named "The menu" */
 
-    // describe("The menu", function() {
-    //   it("element to be hidden by default", function() {
-    //     let body = document.getElementsByTagName("body")[0];
-    //     expect(body).toHaveAttr("class", "menu-hidden");
-    //   });
-    //   //
-    // });
+    describe("The menu", function() {
+      it("element to be hidden by default", function() {
+        let body = document.getElementsByTagName("body")[0];
+        // expect(body).toHaveAttr("class", "menu-hidden");
+        expect(body.className).toBe("menu-hidden");
+      });
 
-    /* TODO: Write a test that ensures the menu element is
+      // expect(body).is(':visible')).toBe(false);
+
+      /* TODO: Write a test that ensures the menu element is
          * hidden by default. You'll have to analyze the HTML and
          * the CSS to determine how we're performing the
          * hiding/showing of the menu element.
          */
-    it("changes changes visibility when the menu icon is clicked", function() {
-      let menuIcon = document.getElementsByClassName("menu-icon-link")[0];
-      let body = document.getElementsByTagName("body")[0];
-      menuIcon("click");
-      expect(body).toBeVisible();
+      it("changes visibility when the menu icon is clicked", function() {
+        // let menuIcon = document.getElementsByClassName("menu-icon-link")[0];
+        let body = document.getElementsByTagName("body")[0];
+        // var spyEvent = spyOnEvent(".menu-icon-link", "click");
+        $(".menu-icon-link").click();
+        expect(body.className).toBe("");
+        $(".menu-icon-link").click();
+        expect(body.className).toBe("menu-hidden");
+        // expect(spyEvent).toHaveBeenTriggered();
 
+        // menuIcon("click");
+        // expect(body).toBeVisible();
+      });
       //add on second click
     });
     /* TODO: Write a test that ensures the menu changes
@@ -83,7 +91,17 @@ $(
 
     /* TODO: Write a new test suite named "Initial Entries" */
 
-    describe("Initial Entries", function() {});
+    describe("Initial Entries", function() {
+      it("there is at least a single .entry element within the .feed container.", function(done) {
+        loadFeed(1, function() {
+          let container = $(".feed");
+          expect(container.children().length).not.toBe(0);
+          done();
+        });
+
+        // toBe("entry-link");
+      });
+    });
 
     /* TODO: Write a test that ensures when the loadFeed
          * function is called and completes its work, there is at least
