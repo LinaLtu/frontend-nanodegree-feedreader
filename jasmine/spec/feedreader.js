@@ -121,14 +121,16 @@ $(
         let entriesArrayBeforeLoad = Array.prototype.slice.call(
           entriesHTMLCollectionBeforeLoad
         );
+        console.log("Before load ", entriesArrayBeforeLoad[0].innerText);
         firstEntryBeforeLoad = entriesArrayBeforeLoad[0].innerText;
       });
 
       it("has a content that actually changes", function(done) {
-        loadFeed(1, function() {
+        loadFeed(2, function() {
           let entriesHTMLCollection = document.getElementsByClassName("entry");
           let entriesArray = Array.prototype.slice.call(entriesHTMLCollection);
-          expect(entriesArray[0]).not.toBe(firstEntryBeforeLoad);
+          console.log("After load ", entriesArray[0].innerText);
+          expect(entriesArray[0].innerText).not.toBe(firstEntryBeforeLoad);
           done();
         });
       });
