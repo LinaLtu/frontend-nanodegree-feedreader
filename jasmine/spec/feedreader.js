@@ -113,15 +113,22 @@ $(
     /* TODO: Write a new test suite named "New Feed Selection" */
 
     describe("New Feed Selection", function() {
+      var firstEntryBeforeLoad = "";
+      beforeEach(function() {
+        let entriesHTMLCollectionBeforeLoad = document.getElementsByClassName(
+          "entry"
+        );
+        let entriesArrayBeforeLoad = Array.prototype.slice.call(
+          entriesHTMLCollectionBeforeLoad
+        );
+        firstEntryBeforeLoad = entriesArrayBeforeLoad[0].innerText;
+      });
+
       it("has a content that actually changes", function(done) {
         loadFeed(1, function() {
           let entriesHTMLCollection = document.getElementsByClassName("entry");
           let entriesArray = Array.prototype.slice.call(entriesHTMLCollection);
-          let entry = "";
-          entriesArray.forEach(function(entry) {
-            entry = entry.innerText;
-            expect(entry).not.toBe("");
-          });
+          expect(entriesArray[0]).not.toBe(firstEntryBeforeLoad);
           done();
         });
       });
