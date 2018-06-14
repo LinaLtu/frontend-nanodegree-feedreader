@@ -1,3 +1,5 @@
+//TODO: Implement error handling for undefined variables and out-of-bound array access.
+
 /* feedreader.js
  *
  * This is the spec file that Jasmine will read and contains
@@ -98,8 +100,6 @@ $(
           expect(container.children().length).not.toBe(0);
           done();
         });
-
-        // toBe("entry-link");
       });
     });
 
@@ -113,7 +113,18 @@ $(
     /* TODO: Write a new test suite named "New Feed Selection" */
 
     describe("New Feed Selection", function() {
-      //this will be an asyn test
+      it("has a content that actually changes", function(done) {
+        loadFeed(1, function() {
+          let entriesHTMLCollection = document.getElementsByClassName("entry");
+          let entriesArray = Array.prototype.slice.call(entriesHTMLCollection);
+          let entry = "";
+          entriesArray.forEach(function(entry) {
+            entry = entry.innerText;
+            expect(entry).not.toBe("");
+          });
+          done();
+        });
+      });
     });
 
     /* TODO: Write a test that ensures when a new feed is loaded
