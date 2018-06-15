@@ -32,7 +32,7 @@ var allFeeds = [
  */
 function init() {
   // Load the first feed we've defined (index of 0).
-  loadFeed(0);
+  loadFeed(6660);
 }
 
 /* This function performs everything necessary to load a
@@ -44,13 +44,17 @@ function init() {
  * which will be called after everything has run successfully.
  */
 function loadFeed(id, cb) {
-  //if (allFeeds[id].url && allFeeds[id].name) {
-  var feedUrl = allFeeds[id].url,
-    feedName = allFeeds[id].name;
-  // } else {
-  //   console.log("Working");
-  //   return;
-  // }
+  if (id < allFeeds.length) {
+    var feedUrl = allFeeds[id].url,
+      feedName = allFeeds[id].name;
+  } else {
+    try {
+      throw new Error("Something went wrong");
+    } catch (e) {
+      console.log(e.message);
+      return;
+    }
+  }
 
   $.ajax({
     type: "POST",

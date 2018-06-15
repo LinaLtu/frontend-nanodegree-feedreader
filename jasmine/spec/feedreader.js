@@ -1,5 +1,3 @@
-//TODO: Implement error handling for undefined variables and out-of-bound array access.
-
 /* feedreader.js
  *
  * This is the spec file that Jasmine will read and contains
@@ -29,22 +27,12 @@ $(
         expect(allFeeds.length).not.toBe(0);
       });
 
-      /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a URL defined
-         * and that the URL is not empty.
-         */
-
       it("have a URL defined and that URL is not empty", function() {
         allFeeds.forEach(function(feed) {
           expect(feed.url).toBeDefined();
           expect(feed.url).not.toEqual("");
         });
       });
-
-      /* TODO: Write a test that loops through each feed
-         * in the allFeeds object and ensures it has a name defined
-         * and that the name is not empty.
-         */
 
       it("have a name defined and that name is not empty", function() {
         allFeeds.forEach(function(feed) {
@@ -54,44 +42,20 @@ $(
       });
     });
 
-    /* TODO: Write a new test suite named "The menu" */
-
     describe("The menu", function() {
       it("element to be hidden by default", function() {
         let body = document.getElementsByTagName("body")[0];
-        // expect(body).toHaveAttr("class", "menu-hidden");
         expect(body.className).toBe("menu-hidden");
       });
 
-      // expect(body).is(':visible')).toBe(false);
-
-      /* TODO: Write a test that ensures the menu element is
-         * hidden by default. You'll have to analyze the HTML and
-         * the CSS to determine how we're performing the
-         * hiding/showing of the menu element.
-         */
       it("changes visibility when the menu icon is clicked", function() {
-        // let menuIcon = document.getElementsByClassName("menu-icon-link")[0];
         let body = document.getElementsByTagName("body")[0];
-        // var spyEvent = spyOnEvent(".menu-icon-link", "click");
         $(".menu-icon-link").click();
         expect(body.className).toBe("");
         $(".menu-icon-link").click();
         expect(body.className).toBe("menu-hidden");
-        // expect(spyEvent).toHaveBeenTriggered();
-
-        // menuIcon("click");
-        // expect(body).toBeVisible();
       });
-      //add on second click
     });
-    /* TODO: Write a test that ensures the menu changes
-          * visibility when the menu icon is clicked. This test
-          * should have two expectations: does the menu display when
-          * clicked and does it hide when clicked again.
-          */
-
-    /* TODO: Write a new test suite named "Initial Entries" */
 
     describe("Initial Entries", function() {
       it("there is at least a single .entry element within the .feed container.", function(done) {
@@ -103,15 +67,6 @@ $(
       });
     });
 
-    /* TODO: Write a test that ensures when the loadFeed
-         * function is called and completes its work, there is at least
-         * a single .entry element within the .feed container.
-         * Remember, loadFeed() is asynchronous so this test will require
-         * the use of Jasmine's beforeEach and asynchronous done() function.
-         */
-
-    /* TODO: Write a new test suite named "New Feed Selection" */
-
     describe("New Feed Selection", function() {
       var firstEntryBeforeLoad = "";
       beforeEach(function() {
@@ -121,7 +76,6 @@ $(
         let entriesArrayBeforeLoad = Array.prototype.slice.call(
           entriesHTMLCollectionBeforeLoad
         );
-        console.log("Before load ", entriesArrayBeforeLoad[0].innerText);
         firstEntryBeforeLoad = entriesArrayBeforeLoad[0].innerText;
       });
 
@@ -129,16 +83,10 @@ $(
         loadFeed(2, function() {
           let entriesHTMLCollection = document.getElementsByClassName("entry");
           let entriesArray = Array.prototype.slice.call(entriesHTMLCollection);
-          console.log("After load ", entriesArray[0].innerText);
           expect(entriesArray[0].innerText).not.toBe(firstEntryBeforeLoad);
           done();
         });
       });
     });
-
-    /* TODO: Write a test that ensures when a new feed is loaded
-         * by the loadFeed function that the content actually changes.
-         * Remember, loadFeed() is asynchronous.
-         */
   })()
 );
