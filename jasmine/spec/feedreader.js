@@ -45,23 +45,25 @@ $(
     describe("The menu", function() {
       it("element to be hidden by default", function() {
         let body = document.getElementsByTagName("body")[0];
-        expect(body.className).toBe("menu-hidden");
+        let hasClass = $(body).hasClass("menu-hidden")
+        expect(hasClass).toBe(true);
       });
 
       it("changes visibility when the menu icon is clicked", function() {
         let body = document.getElementsByTagName("body")[0];
+        let hasClass = $(body).hasClass("menu-hidden");
         $(".menu-icon-link").click();
-        expect(body.className).toBe("");
+        expect(hasClass).toBe(true);
+        hasClass = $(body).hasClass("menu-hidden");
         $(".menu-icon-link").click();
-        expect(body.className).toBe("menu-hidden");
+        expect(hasClass).toBe(false);
       });
     });
 
     describe("Initial Entries", function() {
       it("there is at least a single .entry element within the .feed container.", function(done) {
         loadFeed(1, function() {
-          let container = $(".feed");
-          expect(container.children().length).not.toBe(0);
+          expect($('.feed .entry').length).not.toBe(0);
           done();
         });
       });
@@ -80,11 +82,13 @@ $(
       });
 
       it("has a content that actually changes", function(done) {
-        loadFeed(2, function() {
-          let entriesHTMLCollection = document.getElementsByClassName("entry");
-          let entriesArray = Array.prototype.slice.call(entriesHTMLCollection);
-          expect(entriesArray[0].innerText).not.toBe(firstEntryBeforeLoad);
-          done();
+        loadFeed(0, function() {
+            feedOne = $('.feed').html();
+            loadFeed(1, function() {
+                feedTwo = $('.feed').html();
+                expect(feedOne).not.toBe(feedTwo);
+                done();
+            });
         });
       });
     });
