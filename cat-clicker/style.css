@@ -1,0 +1,18 @@
+.main {
+  width: 100%;
+  height: auto;
+  text-align: center;
+  margin: auto 0;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.counter, .counter2 {
+  padding: 10px;
+  font-size: 30px;
+}
+
+#cat-pic img {
+  /* padding: 20px; */
+}
